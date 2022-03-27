@@ -2,6 +2,8 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use PHPUnit\TextUI\XmlConfiguration\Group;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -21,17 +23,18 @@ $router->get('/', function () use ($router) {
 // //payment midtrans
 // $router->post('/payment', 'PaymentsController@bankTransferCharge');
 
+    $router->group(['prefix' => 'api/customer'], function () use ($router){  
 
-$router->post('/register', 'AuthCustomerController@register');
-$router->post('/login', 'AuthCustomerController@loginemail');
-$router->post('/login-nomor', 'AuthCustomerController@loginnomor');
-$router->post('/logout', 'AuthCustomerController@logout');
+    // Login & Register
+    $router->post('/register', 'AuthCustomerController@register');
+    $router->post('/login', 'AuthCustomerController@loginemail');
+    $router->post('/login-nomor', 'AuthCustomerController@loginnomor');
+    $router->post('/logout', 'AuthCustomerController@logout');
 
-# OTP EMAIL ROUTES
-$router->post('/reload-otp', 'AuthCustomerController@reloadKodeOTP');
-$router->post('/verifikasi-otp', 'AuthCustomerController@VerifikasiOTP');
-
-    $router->group(['prefix' => 'api/customer'], function () use ($router) {   
+    # OTP EMAIL ROUTES
+    $router->post('/reload-otp', 'AuthCustomerController@reloadKodeOTP');
+    $router->post('/verifikasi-otp', 'AuthCustomerController@VerifikasiOTP');
+        
     //Customer
     $router->delete('/delete-customer/{id_customer}', 'AuthCustomerController@destroy');
 
@@ -41,6 +44,12 @@ $router->post('/verifikasi-otp', 'AuthCustomerController@VerifikasiOTP');
     $router->put('/profile/telepon/{id_customer}', 'AuthCustomerController@teleponupdate');
 
     $router->get('/profile/customer', 'AuthCustomerController@index');
+
+    # OTP EMAIL ROUTES
+    $router->post('/reload-otp', 'AuthCustomerController@reloadKodeOTP');
+    $router->post('/verifikasi-otp', 'AuthCustomerController@VerifikasiOTP');   
+
+    
     });
 
     //pengelola pasar
