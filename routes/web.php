@@ -49,6 +49,16 @@ $router->get('/', function () use ($router) {
     $router->post('/reload-otp', 'AuthCustomerController@reloadKodeOTP');
     $router->post('/verifikasi-otp', 'AuthCustomerController@VerifikasiOTP');   
 
+    #Review Produk 
+    $router->post('/review', ['uses' => 'ReviewProdukController@create']);
+    // $router->get('/', ['uses' =>  'ReviewProdukController@index']);
+    $router->get('/review/{id_produk}', ['uses' =>  'ReviewProdukController@show']);
+    $router->put('/{id}', ['uses' =>  'ReviewProdukController@update']);
+    $router->delete('delete-review/{id}', ['uses' =>  'ReviewProdukController@destroy']);
+
+    $router->post('/favorit', ['uses' => 'FavoritProdukController@create']);
+    $router->get('/favorit', ['uses' =>  'FavoritProdukController@show']);
+    $router->delete('/favorit/{id}', ['uses' =>  'FavoritProdukController@destroy']);
     
     });
 
@@ -148,14 +158,6 @@ $router->get('/', function () use ($router) {
         $router->delete('delete-pesanan/{id_pesanan}', ['uses' =>  'PesananController@destroy']);
     });
 
-    $router->group(['prefix' => 'api/review'], function () use ($router) { 
-        $router->post('/', ['uses' => 'ReviewProdukController@create']);
-        $router->get('/', ['uses' =>  'ReviewProdukController@index']);
-        $router->get('/{id_produk}', ['uses' =>  'ReviewProdukController@show']);
-        $router->put('/{id}', ['uses' =>  'ReviewProdukController@update']);
-        $router->delete('delete-review/{id}', ['uses' =>  'ReviewProdukController@destroy']);
-    });
-
     $router->group(['prefix' => 'api/voucher'], function () use ($router) {     
         $router->post('/', ['uses' => 'VoucherController@create']);
         $router->get('/', ['uses' =>  'VoucherController@index']);
@@ -173,12 +175,6 @@ $router->get('/', function () use ($router) {
         $router->put('/{id_driver}', ['uses' =>  'DriverController@update']);
         $router->delete('delete-driver/{id_driver}', ['uses' =>  'DriverController@destroy']);
     }); 
-
-    $router->group(['prefix' => 'api/favorit'], function () use ($router) {      
-        $router->post('/', ['uses' => 'FavoritProdukController@create']);
-        $router->get('/', ['uses' =>  'FavoritProdukController@show']);
-        $router->delete('/{id}', ['uses' =>  'FavoritProdukController@destroy']);
-    });
     
     $router->group(['prefix' => 'api/keranjang'], function () use ($router) {      
         $router->post('/', ['uses' => 'KeranjangProdukController@create']);
